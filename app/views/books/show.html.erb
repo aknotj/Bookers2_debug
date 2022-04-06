@@ -1,5 +1,5 @@
 <%= render 'layouts/errors', obj: @newbook %>
-      
+
 
 <div class='container'>
   <div class='row'>
@@ -23,6 +23,12 @@
           <% if @book.user == current_user %>
             <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success edit_book_#{@book.id}" %></td>
             <td><%= link_to 'Destroy', book_path(@book), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@book.id}"%></td>
+          <% else %>
+            <% if @book.favorited_by?(current_user) %>
+              <td><%= link_to "♥#{@book.favorites.count}", book_favorite_path(@book.id), method: :delete %></td>
+            <% else %>
+              <td><%= link_to "♡#{@book.favorites.count}", book_favorite_path(@book.id), method: :post %></td>
+            <% end %>
           <% end %>
         </tr>
       </table>
