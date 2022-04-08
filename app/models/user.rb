@@ -23,7 +23,7 @@ class User < ApplicationRecord
   def get_profile_image
     (profile_image.attached?) ? profile_image : 'no_image.jpg'
   end
-  
+
   def follow(user_id)
     active_relationships.create(followed_id: user_id)
   end
@@ -31,9 +31,21 @@ class User < ApplicationRecord
   def unfollow(user_id)
     active_relationships.find_by(followed_id: user_id).destroy
   end
-  
+
   def following?(user)
     following.include?(user)
   end
-  
+
+  def self.search_for(content, method)
+    if method == "exact"
+      User.where(name: content)
+    elsif method == "foward"
+      User.where("name like ?", content + "%")
+    elsif method == "backward"
+      User.where("name like ?", "%" + content)
+    else
+      User.where("name like ?", '%'+content.to_s+'%')
+    end
+  end
+
 end
