@@ -4,4 +4,5 @@ class Relationship < ApplicationRecord
   
   validates :followed_id, presence: true
   validates :follower_id, presence: true
+
 end
