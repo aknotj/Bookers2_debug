@@ -1,0 +1,6 @@
+  <div class="form-group">
+    <%= form_with model: [@book, @book_comment], local: false do |f|%>
+      <%= f.text_area :book_comment, class: "form-control mb-1", "rows" => "5" %>
+      <%= f.submit "送信" %>
+    <% end %>
+      </div>
