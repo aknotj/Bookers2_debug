@@ -24,6 +24,8 @@ class BooksController < ApplicationController
 
   def index
     @book = Book.new
+    to = Time.current. at_end_of_day
+    from = (to - 6.day).at_beginning_of_day
     @books = Book.all
   end
 
@@ -54,5 +56,5 @@ class BooksController < ApplicationController
   def book_params
     params.require(:book).permit(:title, :body)
   end
-  
+
 end
