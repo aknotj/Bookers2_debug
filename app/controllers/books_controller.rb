@@ -26,7 +26,7 @@ class BooksController < ApplicationController
     @book = Book.new
     to = Time.current. at_end_of_day
     from = (to - 6.day).at_beginning_of_day
-    @books = Book.all
+    @books = Book.includes(:favorites).sort_by{|x|x.favorites.where(created_at: from...to).size}.reverse
   end
 
   def edit
