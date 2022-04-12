@@ -1,8 +1,22 @@
 class UsersController < ApplicationController
-  before_action :ensure_correct_user, only: [:edit, :update, :destroy, :following, :followers]
+  before_action :ensure_correct_user, only: [:edit, :show, :update, :destroy, :following, :followers]
 
   def show
     @user = User.find(params[:id])
+    unless @user.id == current_user.id
+      current_user.entries.each do |cu|
+        @user.entries.each do |u|
+          if cu.room_id == u.room_id
+            @isRoom = true
+            @roomId = cu.room_id
+          end
+        end
+      end
+      unless @isRoom
+        @room = Room.new
+        @entry = Entry.new
+      end
+    end
     @books = @user.books
     @book = Book.new
   end

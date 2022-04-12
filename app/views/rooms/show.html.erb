@@ -1,0 +1,26 @@
+<% @entries.each do |e| %>
+  <div class="user-name">
+    <%= e.user.name %>
+  </div>
+<% end %>
+
+<div class="chats">
+  <div class="chat">
+    <% if @messages.present? %>
+      <% @messages.each do |m| %>
+        <%= m.user.name %>
+        <div class="chat-box">
+          <%= m.content %>
+          <%= m.created_at.strftime("%y-%m-%d %H:%M") %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="posts">
+    <%= form_for @message do |f| %>
+      <%= f.text_field :content %>
+      <%= f.hidden_field :room_id, value: @room.id %>
+      <%= f.submit "送信" %>
+    <% end %>
+  </div>
+</div>
