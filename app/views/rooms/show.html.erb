@@ -16,6 +16,7 @@
       <% end %>
     <% end %>
   </div>
+  <%= render "layouts/errors", obj: @message %>
   <div class="posts">
     <%= form_for @message do |f| %>
       <%= f.text_field :content %>
