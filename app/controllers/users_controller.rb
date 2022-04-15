@@ -37,7 +37,6 @@ class UsersController < ApplicationController
       @from_last_week = @books_this_week.count/@books_last_week.count
       @weekly_growth = (@from_last_week.to_f*100).round == 0
     end
-
   end
 
   def index
