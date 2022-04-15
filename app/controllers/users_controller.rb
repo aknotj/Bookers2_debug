@@ -19,6 +19,25 @@ class UsersController < ApplicationController
     end
     @books = @user.books
     @book = Book.new
+
+    @books_today = @user.books.created_today
+    @books_yesterday = @user.books.created_yesterday
+    if @books_yesterday.count == 0
+      @daily_growth = @books_today.count*100
+    else
+      @from_yesterday = @books_today.count/@books_yesterday.count
+      @daily_growth = (@from_yesterday.to_f*100).round == 0
+    end
+
+    @books_this_week = @user.books.created_this_week
+    @books_last_week = @user.books.created_last_week
+    if @books_last_week.count == 0
+      @weekly_growth = @books_this_week.count*100
+    else
+      @from_last_week = @books_this_week.count/@books_last_week.count
+      @weekly_growth = (@from_last_week.to_f*100).round == 0
+    end
+
   end
 
   def index

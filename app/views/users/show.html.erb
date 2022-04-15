@@ -12,6 +12,51 @@
     <div class='col-md-8 offset-md-1'>
       <h2>Books</h2>
       <%= render 'books/index',books: @books %>
+
+      <table class="table daily-count">
+        <thead>
+          <tr>
+            <th>今日の投稿数</th>
+            <th>前日の投稿数</th>
+            <th>前日比</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= @books_today.count %></td>
+            <td><%= @books_yesterday.count %></td>
+            <% if @books_yesterday.count == 0 %>
+                  <td>前日の投稿がありません</td>
+            <% else %>
+                  <td><% @from_yesterday = @books_today.count/@books_yesterday.count %>
+                  <%=  @daily_growth = (@from_yesterday.to_f*100).round %>%</td>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+
+      <table class="table weekly-count">
+        <thead>
+          <tr>
+            <th>今週の投稿数</th>
+            <th>先週の投稿数</th>
+            <th>先週比</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= @books_this_week.count %></td>
+            <td><%= @books_last_week.count %></td>
+            <% if @books_last_week.count == 0 %>
+                  <td>前日の投稿がありません</td>
+            <% else %>
+                  <td><% @from_last_week = @books_this_week.count/@books_last_week.count %>
+                  <%=  @weekly_growth = (@from_last_week.to_f*100).round %>%</td>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+
     </div>
   </div>
 </div>
