@@ -57,3 +57,4 @@ gem 'devise'
 
 gem 'jquery-rails'
 gem 'chartkick'
+gem 'chart-js-rails'

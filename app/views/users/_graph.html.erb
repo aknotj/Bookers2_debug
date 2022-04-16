@@ -1,42 +1,46 @@
-<div class="post-count">
-  <h2>7日間分の投稿数</h2>
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>6日前</th>
-        <th>5日前</th>
-        <th>4日前</th>
-        <th>3日前</th>
-        <th>2日前</th>
-        <th>1日前</th>
-        <th>今日</th>
-      </tr>
-    </thead>
-    <tbody>
-       <tr>
-        <td><%= user.books.created_6days_ago.count %></td>
-        <td><%= user.books.created_5days_ago.count %></td>
-        <td><%= user.books.created_4days_ago.count %></td>
-        <td><%= user.books.created_3days_ago.count %></td>
-        <td><%= user.books.created_2days_ago.count %></td>
-        <td><%= user.books.created_yesterday.count %></td>
-        <td><%= user.books.created_today.count %></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<canvas id="myLineChart"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
 
- <div class"post-graph mb-2">
-
-  <%= line_chart [{:name=>"本の投稿数", :data=>[
-                  ["6日前", user.books.where(created_at: 6.day.ago.all_day).count],
-                  ["5日前", user.books.where(created_at: 5.day.ago.all_day).count],
-                  ["4日前", user.books.where(created_at: 4.day.ago.all_day).count],
-                  ["3日前", user.books.where(created_at: 3.day.ago.all_day).count],
-                  ["2日前", user.books.where(created_at: 2.day.ago.all_day).count],
-                  ["1日前", user.books.created_yesterday.count],
-                  ["今日", user.books.created_today.count]]} ] , max: 10, title: "7日間の投稿数比較" %>
-
-
-
- </div>
+  <script>
+  var ctx = document.getElementById("myLineChart");
+  var myLineChart = new Chart(ctx, {
+    type: 'line', 
+    data: {
+      labels: ['6日前', '５日前', '４日前', '３日前', '２日前', '１日前', '今日'],
+      datasets: [
+        {
+          label: '投稿した本の数',
+          data:
+          [<%=@books_6days_ago.count %>,　
+          <%=@books_5days_ago.count %> ,
+          <%=@books_4days_ago.count %>,
+          <%=@books_3days_ago.count %>,
+          <%=@books_2days_ago.count %>,
+          <%=@books_yesterday.count %>,
+          <%=@books_today.count %>
+          ],
+          borderColor: "rgba(0,0,255,1)",
+          backgroundColor: "rgba(0,0,0,0)"
+        },
+      ],
+    },
+    options: {
+      title: {
+        display: true,
+        text: '７日間の本の投稿数'
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            suggestedMax: 10,
+            suggestedMin: 0,
+            stepSize: 1,
+            callback: function(value, index, values){
+              return  value
+            }
+          }
+        }]
+      },
+    }
+  });
+  </script>

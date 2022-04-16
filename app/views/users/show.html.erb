@@ -24,7 +24,9 @@
   <% end %>
 </div>
 
-      <%= render 'graph', user: @user, "data-turbolinks": false %>
+   <div class="user_show_margin">
+       <%= render "users/graph" %>
+     </div>
 
       <%= render 'bookcount', user: @user %>
 
