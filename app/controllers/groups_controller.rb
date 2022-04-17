@@ -9,6 +9,7 @@ class GroupsController < ApplicationController
   def create
     @group = Group.new(group_params)
     @group.admin_id = current_user.id
+    @group.users << current_user
     if @group.save
       flash[:notice] = "Group successfully created!"
       redirect_to group_path(@group)
@@ -31,7 +32,6 @@ class GroupsController < ApplicationController
 
   def edit
     @group = Group.find(params[:id])
-
   end
 
   def update
@@ -43,6 +43,17 @@ class GroupsController < ApplicationController
     end
   end
 
+  def join
+    @group = Group.find(params[:group_id])
+    @group.users << current_user
+    redirect_to group_path(@group)
+  end
+
+  def leave
+    @group = Group.find(params[:group_id])
+    @group.users.delete(current_user)
+    redirect_to groups_path
+  end
 
 
   private
