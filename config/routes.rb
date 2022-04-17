@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   end
   resources :messages, only: [:create]
   resources :rooms, only: [:create, :show]
+  
+  resources :groups, only: [:new, :create, :show, :index, :edit, :update]
 
   get '/search' => "searches#search"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
